@@ -1,123 +1,125 @@
+Tiếng Việt | [English](readme_en.md)
+
 # LightOnOCR_Cpp
 
-AI-powered OCR application that extracts text from images and PDFs using a multimodal vision-language model (1B parameters). Outputs structured markdown with bounding box detection, exportable to Word (.docx), markdown, or plain text.
+Ứng dụng nhận dạng chữ (OCR) thông minh, giúp bạn trích xuất nội dung từ ảnh và file PDF nhờ mô hình AI đa phương thức với 1 tỷ tham số. Kết quả được trả về dưới dạng markdown có cấu trúc, kèm vị trí từng vùng chữ, và có thể xuất ra Word (.docx), markdown hoặc văn bản thuần.
 
-## Architecture
+## Kiến trúc
 
-The project has **3 components** across 2 Visual Studio solutions:
+Dự án gồm **3 phần** nằm trong 2 solution Visual Studio:
 
-| Project | Language | Type | Purpose |
-|---------|----------|------|---------|
-| **LightOnOCRcpp** | C++ (native) | Console EXE | Core inference engine wrapping llama.cpp |
-| **LightOnOCR** | C++/CLI | DLL | Managed wrapper bridging C++ ↔ .NET |
-| **LightOnOCR_UI** | C# WPF | Desktop App | GUI with batch processing, drag-drop, live streaming |
+| Dự án | Ngôn ngữ | Loại | Vai trò |
+|-------|----------|------|---------|
+| **LightOnOCRcpp** | C++ (native) | Console EXE | Phần lõi xử lý AI, dựa trên llama.cpp |
+| **LightOnOCR** | C++/CLI | DLL | Lớp kết nối giữa C++ và .NET |
+| **LightOnOCR_UI** | C# WPF | Ứng dụng Desktop | Giao diện người dùng hỗ trợ kéo thả, xử lý hàng loạt, hiển thị kết quả trực tiếp |
 
 ```
-LightOnOCR_UI.sln   ← Full app (all 3 projects)
-LightOnOCRcpp.sln   ← CLI-only
+LightOnOCR_UI.sln   ← Ứng dụng đầy đủ (cả 3 phần)
+LightOnOCRcpp.sln   ← Chỉ dòng lệnh (CLI)
 ```
 
-## Prerequisites
+## Yêu cầu
 
-- **Visual Studio 2022** (v17.14+) with C++ Desktop and .NET Desktop workloads
+- **Visual Studio 2022** (v17.14 trở lên), cài thêm workload C++ Desktop và .NET Desktop
 - **.NET 8.0 SDK**
-- **C++20** toolset (v143)
-- **Windows 10+**, x64 only
-- **Pandoc** (for markdown → .docx conversion)
+- Bộ công cụ **C++20** (v143)
+- **Windows 10** trở lên, chỉ hỗ trợ x64
+- **Pandoc** (dùng để chuyển markdown sang .docx)
 
-## Models
+## Mô hình AI
 
-[Download model](https://huggingface.co/noctrex/LightOnOCR-2-1B-bbox-GGUF) and place in `bin/model/`:
+[Tải mô hình tại đây](https://huggingface.co/noctrex/LightOnOCR-2-1B-bbox-GGUF), sau đó đặt vào thư mục `bin/model/`:
 
-| Model | Purpose |
-|-------|---------|
-| `LightOnOCR-2-1B-bbox-BF16.gguf` | Main LLM + vision backbone (BF16) |
-| `mmproj-F32.gguf` | Multimodal projection adapter |
+| Tên file | Vai trò |
+|----------|--------|
+| `LightOnOCR-2-1B-bbox-BF16.gguf` | Mô hình ngôn ngữ chính kèm xử lý ảnh (BF16) |
+| `mmproj-F32.gguf` | Bộ chiếu kết nối ảnh với mô hình ngôn ngữ |
 
-## Build from Source
+## Hướng dẫn biên dịch
 
-### Step 1: Clone and prepare dependencies
+### Bước 1: Tải mã nguồn và chuẩn bị
 
 ```
 copy lib/llama.cpp/lib/*.dll -> bin/
 copy pandoc.exe -> bin/
 ```
 
-Ensure model files are in `bin/model/`.
+Nhớ kiểm tra các file mô hình đã nằm trong `bin/model/`.
 
-### Step 2: Build the full application (GUI + CLI)
+### Bước 2: Biên dịch ứng dụng đầy đủ (giao diện + dòng lệnh)
 
-1. Open `LightOnOCR_UI.sln` in Visual Studio 2022
-2. Select **Release | x64**
-3. **Build** → **Build Solution** (builds all 3 projects in dependency order)
+1. Mở `LightOnOCR_UI.sln` bằng Visual Studio 2022
+2. Chọn cấu hình **Release | x64**
+3. Vào **Build** → **Build Solution** (sẽ tự biên dịch cả 3 phần theo đúng thứ tự)
 
-### Step 3: Build CLI only (optional)
+### Bước 3: Biên dịch riêng phiên bản dòng lệnh (không bắt buộc)
 
-1. Open `LightOnOCRcpp.sln` in Visual Studio 2022
-2. Select **Release-static | x64**
-3. Build → generates `LightOnOCRcpp.exe`
+1. Mở `LightOnOCRcpp.sln` bằng Visual Studio 2022
+2. Chọn cấu hình **Release-static | x64**
+3. Build xong sẽ tạo ra file `LightOnOCRcpp.exe`
 
-### Output structure
+### Cấu trúc thư mục sau khi biên dịch
 
 ```
 bin/
-├── LightOnOCR_UI.exe              ← WPF application
-├── LightOnOCR.dll                 ← C++/CLI wrapper
-├── LightOnOCRcpp.exe              ← CLI tool
-├── pandoc.exe                     ← Markdown → DOCX converter
-├── *.dll                          ← llama.cpp runtime DLLs
+├── LightOnOCR_UI.exe              ← Ứng dụng giao diện (WPF)
+├── LightOnOCR.dll                 ← Lớp kết nối C++/CLI
+├── LightOnOCRcpp.exe              ← Công cụ dòng lệnh
+├── pandoc.exe                     ← Chuyển đổi Markdown sang DOCX
+├── *.dll                          ← Các thư viện của llama.cpp
 ├── model/
 │   ├── LightOnOCR-2-1B-bbox-BF16.gguf
 │   └── mmproj-F32.gguf
-└── runtimes/                      ← PDFium native libs
+└── runtimes/                      ← Thư viện xử lý PDF (PDFium)
 ```
 
-## Usage
+## Cách sử dụng
 
-### GUI Application
+### Dùng giao diện (GUI)
 
 ```bash
 bin\LightOnOCR_UI.exe
 ```
 
-1. Wait for the model to load (status bar shows progress)
-2. Click **"+ Select Images / PDFs"** or drag files into the queue
-3. Reorder items by dragging if needed
-4. Click **"START PROCESSING"** — tokens stream in real-time
-5. Export results:
-   - Single file → **Save File (.docx)**
-   - Multiple files → **Save as ZIP (.zip)** or **Combine Files**
+1. Đợi mô hình tải xong (theo dõi tiến trình ở thanh trạng thái)
+2. Nhấn **"+ Select Images / PDFs"** hoặc kéo thả file vào danh sách
+3. Kéo thả để sắp xếp lại thứ tự nếu muốn
+4. Nhấn **"START PROCESSING"** — kết quả sẽ hiện ra ngay trong lúc xử lý
+5. Lưu kết quả:
+   - Một file → **Save File (.docx)**
+   - Nhiều file → **Save as ZIP (.zip)** hoặc **Combine Files** (gộp lại)
 
-**Supported input:** PNG, JPG, JPEG, PDF (multi-page)
-**Export formats:** .docx, .md, .txt, .zip
+**File đầu vào hỗ trợ:** PNG, JPG, JPEG, PDF (nhiều trang)
+**Xuất ra:** .docx, .md, .txt, .zip
 
-**UI features:**
-- Real-time token streaming during OCR
-- Automatic bounding box detection and image cropping
-- PDF multi-page processing at 300 DPI
-- Dark / Light theme toggle
-- Batch export to ZIP archive
+**Các tính năng nổi bật:**
+- Hiển thị kết quả ngay trong lúc xử lý (streaming)
+- Tự động phát hiện vùng chữ và cắt ảnh theo vùng
+- Xử lý PDF nhiều trang với độ phân giải 300 DPI
+- Chuyển đổi giao diện Sáng / Tối
+- Xuất hàng loạt ra file ZIP
 
-### CLI Application
+### Dùng dòng lệnh (CLI)
 
 ```bash
-LightOnOCRcpp.exe <model_path> <mmproj_path> <image_path> [prompt]
+LightOnOCRcpp.exe <đường_dẫn_mô_hình> <đường_dẫn_mmproj> <đường_dẫn_ảnh> [prompt]
 ```
 
-**Example:**
+**Ví dụ:**
 
 ```bash
 LightOnOCRcpp.exe model\LightOnOCR-2-1B-bbox-BF16.gguf model\mmproj-F32.gguf document.png
 ```
 
-Streams extracted text with bounding box coordinates to stdout.
+Kết quả sẽ được in ra màn hình kèm tọa độ vùng chữ.
 
-## Dependencies
+## Các thư viện sử dụng
 
-| Package | Purpose |
-|---------|---------|
-| [llama.cpp](https://github.com/ggml-org/llama.cpp) | LLM inference engine (GGML/GGUF) |
-| [PDFtoImage](https://www.nuget.org/packages/PDFtoImage) | PDF → image conversion |
-| [SkiaSharp](https://www.nuget.org/packages/SkiaSharp) | Image cropping and manipulation |
-| [PDFium](https://www.nuget.org/packages/bblanchon.PDFium.Win32) | Native PDF rendering |
-| [Pandoc](https://pandoc.org/) | Markdown → DOCX conversion |
+| Thư viện | Công dụng |
+|----------|----------|
+| [llama.cpp](https://github.com/ggml-org/llama.cpp) | Chạy mô hình ngôn ngữ lớn (GGML/GGUF) |
+| [PDFtoImage](https://www.nuget.org/packages/PDFtoImage) | Chuyển PDF thành ảnh |
+| [SkiaSharp](https://www.nuget.org/packages/SkiaSharp) | Cắt và xử lý ảnh |
+| [PDFium](https://www.nuget.org/packages/bblanchon.PDFium.Win32) | Hiển thị nội dung PDF |
+| [Pandoc](https://pandoc.org/) | Chuyển Markdown sang DOCX |
