@@ -4,6 +4,8 @@ Tiếng Việt | [English](readme_en.md)
 
 Ứng dụng nhận dạng chữ (OCR) thông minh, giúp bạn trích xuất nội dung từ ảnh và file PDF nhờ mô hình AI đa phương thức với 1 tỷ tham số. Kết quả được trả về dưới dạng markdown có cấu trúc, kèm vị trí từng vùng chữ, và có thể xuất ra Word (.docx), markdown hoặc văn bản thuần.
 
+![](lightonocr.png)
+
 ## Kiến trúc
 
 Dự án gồm **3 phần** nằm trong 2 solution Visual Studio:
