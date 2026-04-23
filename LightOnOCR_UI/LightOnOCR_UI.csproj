@@ -16,7 +16,12 @@
 
 	  <!-- Stop .NET from appending "\win-x64\" to the end of your path -->
 	  <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+	  <ApplicationIcon>text.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="text.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="PDFtoImage" Version="5.2.0" />

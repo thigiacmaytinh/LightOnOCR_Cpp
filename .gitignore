@@ -1,3 +1,5 @@
 */.vs/
 */obj/
 */x64/
+.vs/
+LightOnOCRcpp/lib/
