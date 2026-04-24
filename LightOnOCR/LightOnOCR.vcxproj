@@ -66,7 +66,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)LightOnOCRcpp;$(SolutionDir)lib\llama.cpp\include;$(SolutionDir)lib\llama.cpp\ggml\include;$(SolutionDir)lib\llama.cpp\tools\mtmd</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>ggml-base.lib;ggml.lib;ggml-cpu.lib;ggml-cuda.lib;llama.lib;common.lib;mtmd.lib;$(SolutionDir)LightOnOCRcpp\lib\LightOnOCRcppd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ggml-based.lib;ggmld.lib;ggml-cpud.lib;ggml-cudad.lib;llamad.lib;commond.lib;mtmdd.lib;$(SolutionDir)LightOnOCRcpp\lib\LightOnOCRcppd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)lib\llama.cpp\lib\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
