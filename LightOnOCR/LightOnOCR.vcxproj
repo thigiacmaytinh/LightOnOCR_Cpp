@@ -64,10 +64,11 @@
       <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
       <CompileAsManaged>NetCore</CompileAsManaged>
       <AdditionalIncludeDirectories>$(SolutionDir)LightOnOCRcpp;$(SolutionDir)lib\llama.cpp\include;$(SolutionDir)lib\llama.cpp\ggml\include;$(SolutionDir)lib\llama.cpp\tools\mtmd</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>ggml-based.lib;ggmld.lib;ggml-cpud.lib;ggml-cudad.lib;llamad.lib;commond.lib;mtmdd.lib;$(SolutionDir)LightOnOCRcpp\lib\LightOnOCRcppd.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\llama.cpp\lib\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ggml-based.lib;ggmld.lib;ggml-cpud.lib;llamad.lib;commond.lib;mtmdd.lib;$(SolutionDir)LightOnOCRcpp\lib\LightOnOCRcppd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\llama.cpp\lib\CPU\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -79,14 +80,14 @@
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)LightOnOCRcpp;$(SolutionDir)lib\llama.cpp\include;$(SolutionDir)lib\llama.cpp\ggml\include;$(SolutionDir)lib\llama.cpp\tools\mtmd</AdditionalIncludeDirectories>
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <ConformanceMode>Default</ConformanceMode>
       <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
       <CompileAsManaged>NetCore</CompileAsManaged>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>ggml-base.lib;ggml.lib;ggml-cpu.lib;ggml-cuda.lib;llama.lib;common.lib;mtmd.lib;$(SolutionDir)LightOnOCRcpp\lib\LightOnOCRcpp.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\llama.cpp\lib\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ggml-base.lib;ggml.lib;ggml-cpu.lib;llama.lib;common.lib;mtmd.lib;$(SolutionDir)LightOnOCRcpp\lib\LightOnOCRcpp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\llama.cpp\lib\CPU\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

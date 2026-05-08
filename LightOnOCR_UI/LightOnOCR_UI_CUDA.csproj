@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <Platforms>x64</Platforms>
+    <BaseOutputPath>$(SolutionDir)bin</BaseOutputPath>
+	  <!-- Force the output to the Solution's bin folder -->
+	  <OutputPath>$(SolutionDir)bin\</OutputPath>
+
+	  <!-- Stop .NET from appending "\net8.0-windows\" to the end of your path -->
+	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+
+	  <!-- Stop .NET from appending "\win-x64\" to the end of your path -->
+	  <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+	  <ApplicationIcon>text.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="text.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PDFtoImage" Version="5.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LightOnOCR\LightOnOCR_CUDA.vcxproj" />
+  </ItemGroup>
+
+</Project>

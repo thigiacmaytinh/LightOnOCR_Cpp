@@ -21,7 +21,4 @@
     <ClCompile Include="LightOnOCRcpp.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\bin\log-1.txt" />
-  </ItemGroup>
 </Project>

@@ -9,13 +9,21 @@ LightOnOCR::LightOnOCR(const std::string& model_path, const std::string& mmproj_
     llama_backend_init();
 
     llama_model_params model_params = llama_model_default_params();
+#ifdef USE_CUDA
     model_params.n_gpu_layers = 9999;
+#else
+	model_params.n_gpu_layers = 0; // CPU only
+#endif // USE_CUDA
 
     model = llama_model_load_from_file(model_path.c_str(), model_params);
     if (!model) throw std::runtime_error("Failed to load main model: " + model_path);
 
     mtmd_context_params mtmd_params = mtmd_context_params_default();
+#ifdef USE_CUDA
     mtmd_params.use_gpu = true;
+#else
+	mtmd_params.use_gpu = false;
+#endif // USE_CUDA
     mtmd_params.n_threads = n_threads;
 
     ctx_mtmd = mtmd_init_from_file(mmproj_path.c_str(), model, mtmd_params);
